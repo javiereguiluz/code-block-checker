@@ -54,7 +54,7 @@ class PhpValidator implements Validator
         $contents = str_replace(['...,', '...)', '...;', '...]', '... }'], ['null,', 'null)', 'null;', 'null]', '$a = null; }'], $contents);
 
         $lines = explode("\n", $contents);
-        if (!str_contains($lines[0] ?? '', '<?php') && !str_contains($lines[1] ?? '', '<?php') && !str_contains($lines[2] ?? '', '<?php')) {
+        if (!str_contains($lines[0], '<?php') && !str_contains($lines[1] ?? '', '<?php') && !str_contains($lines[2] ?? '', '<?php')) {
             $contents = '<?php'."\n".$contents;
             $linesPrepended = 1;
         }

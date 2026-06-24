@@ -50,9 +50,9 @@ class Baseline
             foreach ($fileIssues as $issue) {
                 foreach ($fileBaseline as $i => $item) {
                     if (
-                        $issue->getType() === $item['type'] &&
-                        $issue->getText() === $item['text'] &&
-                        $issue->getErroredLine() === $item['code']
+                        $issue->getType() === $item['type']
+                        && $issue->getText() === $item['text']
+                        && $issue->getErroredLine() === $item['code']
                     ) {
                         unset($fileBaseline[$i]);
                         continue 2;

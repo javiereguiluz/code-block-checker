@@ -1,12 +1,12 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+$finder = (new PhpCsFixer\Finder())
     ->in(__DIR__.'/src')
     ->in(__DIR__.'/tests')
 ;
 
-return PhpCsFixer\Config::create()
-    ->setCacheFile(__DIR__.'/.github/.cache/php-cs-fixer/.php_cs.cache')
+return (new PhpCsFixer\Config())
+    ->setCacheFile(__DIR__.'/.github/.cache/php-cs-fixer/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,

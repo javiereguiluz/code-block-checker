@@ -44,7 +44,7 @@ class CheckDocsCommand extends Command
         $this->codeRunner = $codeRunner;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addArgument('source-dir', InputArgument::REQUIRED, 'RST files Source directory')
@@ -57,7 +57,7 @@ class CheckDocsCommand extends Command
         ;
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
 
