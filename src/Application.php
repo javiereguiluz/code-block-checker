@@ -32,7 +32,7 @@ class Application extends BaseApplication
      *
      * @return int 0 if everything went fine, or an error code
      */
-    public function doRun(InputInterface $input, OutputInterface $output)
+    public function doRun(InputInterface $input, OutputInterface $output): int
     {
         $this->registerCommands();
 
@@ -66,7 +66,7 @@ class Application extends BaseApplication
             foreach ($container->getParameter('console.command.ids') as $id) {
                 if (!isset($lazyCommandIds[$id])) {
                     try {
-                        $this->add($container->get($id));
+                        $this->addCommand($container->get($id));
                     } catch (\Throwable $e) {
                         $this->registrationErrors[] = $e;
                     }

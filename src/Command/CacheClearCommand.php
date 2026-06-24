@@ -24,12 +24,12 @@ class CacheClearCommand extends Command
         $this->cacheDirectory = $cacheDir;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Clear the cache directory');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         (new Filesystem())->remove($this->cacheDirectory);
 

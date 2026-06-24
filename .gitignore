@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+/vendor-bin/php-cs-fixer/vendor/
+/vendor-bin/phpstan/vendor/
 ###< symfony/framework-bundle ###
 
 
