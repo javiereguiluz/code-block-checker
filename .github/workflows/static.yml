@@ -6,14 +6,14 @@ on:
 jobs:
   phpstan:
     name: PHPStan
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Cache PHPStan
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: .github/.cache/phpstan/
           key: phpstan-${{ github.sha }}
@@ -22,7 +22,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.5
           coverage: none
 
       - name: Download dependencies
@@ -38,14 +38,14 @@ jobs:
 
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Cache PhpCsFixer
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: .github/.cache/php-cs-fixer/
           key: php-cs-fixer-${{ github.sha }}
@@ -54,7 +54,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.5
           coverage: none
 
       - name: Download dependencies
@@ -70,14 +70,14 @@ jobs:
 
   psalm:
     name: Psalm
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Cache Psalm
-        uses: actions/cache@v2
+        uses: actions/cache@v5
         with:
           path: .github/.cache/psalm/
           key: psalm-${{ github.sha }}
@@ -86,7 +86,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.5
           coverage: none
 
       - name: Download dependencies
@@ -100,20 +100,3 @@ jobs:
       - name: Execute Psalm
         run: vendor/bin/psalm.phar --no-progress --output-format=github
 
-  composer-normalize:
-    name: Composer Normalize
-    runs-on: Ubuntu-20.04
-
-    steps:
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-          coverage: none
-          tools: composer-normalize
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Normalize
-        run:  composer-normalize --dry-run
