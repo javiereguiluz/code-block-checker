@@ -107,6 +107,17 @@ public static function validate($object, ExecutionContextInterface $context, $pa
 }
 '];
         yield [0, '
+$this->connection = /* create your connection */;
+$id = /* get the message id thanks to information or stamps present in the envelope */;
+'];
+        yield [1, '
+$x = ;
+'];
+        yield [1, '
+$x =
+    /* a multi-line placeholder is not rewritten, to preserve line numbers */;
+'];
+        yield [0, '
 <h1>Hello</h1>
 <p><? echo $value; ?></p>
 ', 'html+php'];

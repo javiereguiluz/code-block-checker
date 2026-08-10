@@ -141,7 +141,7 @@ class CheckDocsCommand extends Command
             foreach ($files as $i => $file) {
                 if (!file_exists($sourceDirectory.DIRECTORY_SEPARATOR.$file)) {
                     unset($files[$i]);
-                    $this->outputWarning($input->getOption('output-format'), sprintf('Could not find file "%s"', $file));
+                    $this->outputNotice($input->getOption('output-format'), sprintf('Skipping "%s" (file does not exist)', $file));
                 }
             }
         }
@@ -159,12 +159,12 @@ class CheckDocsCommand extends Command
         return $parseQueue;
     }
 
-    private function outputWarning(string $format, string $text): void
+    private function outputNotice(string $format, string $text): void
     {
         if ('console' === $format) {
-            $this->io->warning($text);
+            $this->io->note($text);
         } elseif ('github' === $format) {
-            $this->io->writeln('::warning::'.$text);
+            $this->io->writeln('::notice::'.$text);
         }
     }
 
@@ -180,7 +180,7 @@ class CheckDocsCommand extends Command
             foreach ($issues as $issue) {
                 // We use urlencoded '\n'
                 $text = str_replace(PHP_EOL, '%0A', $issue->getText());
-                $this->io->writeln(sprintf('::error file=%s,line=%s::[%s] %s', $issue->getFile(), $issue->getLine(), $issue->getType(), $text));
+                $this->io->writeln(sprintf('::error file=%s,line=%s::[%s] %s (in %s on line %d)', $issue->getFile(), $issue->getLine(), $issue->getType(), $text, $issue->getFile(), $issue->getLine()));
             }
         }
     }

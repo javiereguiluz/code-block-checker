@@ -53,6 +53,9 @@ class PhpValidator implements Validator
         // Allow us to use "..." as a placeholder
         $contents = str_replace(['...,', '...)', '...;', '...]', '... }'], ['null,', 'null)', 'null;', 'null]', '$a = null; }'], $contents);
 
+        // Allow us to use "= /* some placeholder */;" as a placeholder value
+        $contents = preg_replace('#=[ \t]*/\*.*?\*/[ \t]*;#', '= null;', $contents);
+
         $lines = explode("\n", $contents);
         if (!str_contains($lines[0], '<?php') && !str_contains($lines[1] ?? '', '<?php') && !str_contains($lines[2] ?? '', '<?php')) {
             $contents = '<?php'."\n".$contents;
