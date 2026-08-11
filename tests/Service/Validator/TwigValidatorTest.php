@@ -30,4 +30,23 @@ class TwigValidatorTest extends TestCase
         $this->validator->validate($node, $issues);
         $this->assertCount(0, $issues);
     }
+
+    public function testParseSecurityFunctions()
+    {
+        $node = new CodeNode([
+            '{{ is_granted("ROLE_ADMIN") }}',
+            '{{ is_granted_for_user(user, "ROLE_ADMIN") }}',
+            '{{ access_decision("ROLE_ADMIN").isGranted }}',
+            '{{ access_decision_for_user(user, "ROLE_ADMIN").isGranted }}',
+            '{{ impersonation_path("_exit") }}',
+            '{{ impersonation_url("_exit") }}',
+            '{{ impersonation_exit_path() }}',
+            '{{ impersonation_exit_url() }}',
+        ]);
+        $node->setEnvironment($this->environment);
+        $node->setLanguage('twig');
+        $issues = new IssueCollection();
+        $this->validator->validate($node, $issues);
+        $this->assertCount(0, $issues);
+    }
 }
